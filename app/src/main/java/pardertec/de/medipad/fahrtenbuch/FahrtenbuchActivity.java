@@ -20,8 +20,9 @@ import java.util.Map;
 import pardertec.de.medipad.R;
 import pardertec.de.medipad.fahrtenbuch.model.Fahrt;
 import pardertec.de.medipad.fahrtenbuch.model.Fahrtenzettel;
+import static pardertec.de.medipad.fahrtenbuch.FahrtenbuchBottomSection.BottomSectionListener;
 
-public class FahrtenbuchActivity extends AppCompatActivity {
+public class FahrtenbuchActivity extends AppCompatActivity implements BottomSectionListener {
 
     public static final String TAG = "MediPad.Fahrtenbuch";
 
@@ -57,7 +58,8 @@ public class FahrtenbuchActivity extends AppCompatActivity {
 
         int previousLine = R.id.kilometer_label;
 
-        //TODO: send kennzeichen, fahrer and sani to fragment
+        FahrtenbuchTopSection topSection = (FahrtenbuchTopSection) getFragmentManager().findFragmentById(R.id.top_fragment);
+        topSection.setFahrtenzettelData(fahrtenzettel);
 
         // Display elements
         List<Fahrt> fahrten = fahrtenzettel.getFahrten();
@@ -235,5 +237,20 @@ public class FahrtenbuchActivity extends AppCompatActivity {
         testFahrtenzettel.addFahrt(zweiteFahrt);
 
         return testFahrtenzettel;
+    }
+
+    @Override
+    public void addFahrt() {
+        //TODO
+    }
+
+    @Override
+    public void departNow() {
+        //TODO
+    }
+
+    @Override
+    public void arriveNow() {
+        //TODO
     }
 }
