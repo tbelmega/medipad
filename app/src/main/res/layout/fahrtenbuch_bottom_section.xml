@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="100dp"
+    android:background="@color/background_floating_material_light">
+
+
+
+    <Button
+        android:id="@+id/abfahrt_button"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="5dp"
+        android:text="Abfahrt"
+        android:enabled="false"/>
+
+    <Button
+        android:id="@+id/neue_fahrt_button"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/abfahrt_button"
+        android:layout_margin="5dp"
+        android:text="Neue Fahrt"
+        />
+
+    <Button
+        android:id="@+id/ankunft_button"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/abfahrt_button"
+        android:layout_margin="5dp"
+        android:text="Ankunft"
+        android:enabled="false"/>
+
+</RelativeLayout>

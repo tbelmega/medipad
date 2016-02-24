@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="100dp"
+    android:background="@color/background_floating_material_light">
+
+    <TextView
+        android:id="@+id/kennzeichen_label"
+        android:layout_width="200dp"
+        android:layout_height="20dp"
+        android:text="Kennzeichen"
+        android:layout_margin="5dp"
+        android:textSize="@dimen/abc_text_size_medium_material"/>
+
+    <TextView
+        android:id="@+id/fahrer_label"
+        android:layout_width="200dp"
+        android:layout_height="20dp"
+        android:text="Fahrer"
+        android:layout_margin="5dp"
+        android:layout_toRightOf="@id/kennzeichen_label"
+        android:textSize="@dimen/abc_text_size_medium_material"/>
+
+    <TextView
+        android:id="@+id/sani_label"
+        android:layout_width="200dp"
+        android:layout_height="20dp"
+        android:text="Sanitäter"
+        android:layout_margin="5dp"
+        android:layout_toRightOf="@id/fahrer_label"
+        android:textSize="@dimen/abc_text_size_medium_material"/>
+
+    <TextView
+        android:id="@+id/kennzeichen"
+        android:layout_width="150dp"
+        android:layout_height="20dp"
+        android:text="XX-XXX XXXX"
+        android:layout_margin="5dp"
+        android:textSize="@dimen/abc_text_size_medium_material"
+        android:layout_below="@+id/kennzeichen_label"
+        android:layout_alignLeft="@+id/kennzeichen_label"/>
+
+    <TextView
+        android:id="@+id/fahrer"
+        android:layout_width="150dp"
+        android:layout_height="20dp"
+        android:text="XXXXX XXXXX"
+        android:layout_margin="5dp"
+        android:textSize="@dimen/abc_text_size_medium_material"
+        android:layout_below="@+id/fahrer_label"
+        android:layout_alignLeft="@+id/fahrer_label"/>
+
+    <TextView
+        android:id="@+id/sani"
+        android:layout_width="150dp"
+        android:layout_height="20dp"
+        android:text="XXXXX XXXXXX"
+        android:layout_margin="5dp"
+        android:textSize="@dimen/abc_text_size_medium_material"
+        android:layout_below="@+id/sani_label"
+        android:layout_alignLeft="@+id/sani_label"/>
+
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="50dp"
+        android:background="@drawable/paramedic_logo"/>
+
+    <Button
+        android:id="@+id/neu_button"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:layout_centerVertical="true"
+        android:layout_margin="5dp"
+        android:layout_toLeftOf="@id/logo"
+        android:text="Neues Fahrtenblatt"/>
+
+    <Button
+        android:id="@+id/bearbeiten_button"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:layout_centerVertical="true"
+        android:layout_margin="5dp"
+        android:layout_toLeftOf="@id/neu_button"
+        android:text="Bearbeiten"/>
+
+</RelativeLayout>

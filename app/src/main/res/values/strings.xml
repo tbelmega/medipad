@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">MediPad</string>
+    <string name="action_settings">Settings</string>
+    <string name="kennzeichen">Kennzeichen</string>
+    <string name="fahrer">Fahrer</string>
+    <string name="sanitaeter">Sanitäter</string>
+    <string name="fahrerName">Unbenannt</string>
+    <string name="sanitaeterName">Unbenannt</string>
+    <string name="kennzeichenText">Unbekannt</string>
+    <string name="modify">Bearbeiten</string>
+</resources>
