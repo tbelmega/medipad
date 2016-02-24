@@ -9,7 +9,7 @@ public class Fahrt implements Comparable<Fahrt> {
 
 
     private String ziel = "";
-    private int kilometerBeginn = 0;
+    private Integer kilometerBeginn = 0;
     private Long abfahrtszeit;
     private Long ankunftszeit;
     private boolean sonderrechte = false;
@@ -70,13 +70,12 @@ public class Fahrt implements Comparable<Fahrt> {
 
 
     /**
-     * Fahrten are ordered by their abfahrtszeit. Null is interpreted as the highest possible value for an abfahrtszeit.
+     * Fahrten are ordered by their kilometer property.
      * @param another
      * @return
      */
     @Override
     public int compareTo(Fahrt another) {
-        if (this.abfahrtszeit == null) return 1;
-        return this.abfahrtszeit.compareTo(another.abfahrtszeit);
+        return this.kilometerBeginn.compareTo(another.kilometerBeginn);
     }
 }

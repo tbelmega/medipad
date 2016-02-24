@@ -1,8 +1,8 @@
 package pardertec.de.medipad.fahrtenbuch.model;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created by Thiemo on 23.02.2016.
@@ -11,7 +11,7 @@ public class Fahrtenzettel {
     private String kennzeichen;
     private String fahrer;
     private String sani;
-    private Map<UUID, Fahrt> fahrten = new HashMap<>();
+    private List<Fahrt> fahrten = new LinkedList<>();
 
     public void setKennzeichen(String kennzeichen) {
         this.kennzeichen = kennzeichen;
@@ -38,10 +38,11 @@ public class Fahrtenzettel {
     }
 
     public void addFahrt(Fahrt fahrt) {
-        this.fahrten.put(fahrt.uuid, fahrt);
+        this.fahrten.add(fahrt);
     }
 
-    public Map<UUID, Fahrt> getFahrten() {
-        return new HashMap<>(fahrten);
+    public List<Fahrt> getFahrten() {
+        Collections.sort(fahrten);
+        return new LinkedList<>(fahrten);
     }
 }

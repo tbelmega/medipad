@@ -14,6 +14,7 @@ import android.widget.TextView;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import pardertec.de.medipad.R;
@@ -45,7 +46,6 @@ public class FahrtenbuchActivity extends AppCompatActivity {
         //just for testing purposes. should load existing data
         fahrtenzettel = getTestFahrtenzettel();
 
-
         renderFahrtenzettel();
     }
 
@@ -56,14 +56,14 @@ public class FahrtenbuchActivity extends AppCompatActivity {
         RelativeLayout fahrtenbuchLayout = (RelativeLayout) this.findViewById(R.id.root_layout);
 
         int previousLine = R.id.kilometer_label;
-        int lineIndex = 0;
 
         //TODO: send kennzeichen, fahrer and sani to fragment
 
-        //TODO: make fahrten a list
-        for (Fahrt currentFahrt: fahrtenzettel.getFahrten().values()){
-
-            lineIndex += MAX_ITEMS_PER_LINE;
+        // Display elements
+        List<Fahrt> fahrten = fahrtenzettel.getFahrten();
+        for (int i = 0; i < fahrten.size(); i++){
+            int lineIndex = (i + 1) * MAX_ITEMS_PER_LINE;
+            Fahrt currentFahrt = fahrten.get(i);
 
             //create relation from line index to data object
             lineTable.put(lineIndex, currentFahrt);
@@ -78,6 +78,7 @@ public class FahrtenbuchActivity extends AppCompatActivity {
             addSonderrechteCheckBox(fahrtenbuchLayout, lineIndex, currentFahrt);
             addInfCheckBox(fahrtenbuchLayout, lineIndex, currentFahrt);
         }
+
     }
 
     private void renderAddressTextView(RelativeLayout fahrtenbuchLayout, int previousLine, int lineIndex, Fahrt currentFahrt) {
@@ -214,9 +215,15 @@ public class FahrtenbuchActivity extends AppCompatActivity {
 
         Fahrt zweiteFahrt = new Fahrt();
         zweiteFahrt.setAbfahrtszeit(System.currentTimeMillis());
-        zweiteFahrt.setZiel("Nach Hause");
-        zweiteFahrt.setKilometerBeginn(1001);
+        zweiteFahrt.setAnkunftszeit(System.currentTimeMillis() + 1000000);
+        zweiteFahrt.setZiel("Dr. K. Ruprecht\nDraußen vom Walde\n10459 Neubrandenburg");
+        zweiteFahrt.setKilometerBeginn(297);
+        zweiteFahrt.setInf(true);
 
+        Fahrt dritteFahrt = new Fahrt();
+        dritteFahrt.setAbfahrtszeit(System.currentTimeMillis() + 1000000);
+        dritteFahrt.setZiel("Nach Hause");
+        dritteFahrt.setKilometerBeginn(1001);
 
         Fahrtenzettel testFahrtenzettel = new Fahrtenzettel();
         testFahrtenzettel.setFahrer("Rudolf Rentier");
@@ -224,6 +231,7 @@ public class FahrtenbuchActivity extends AppCompatActivity {
         testFahrtenzettel.setKennzeichen("M-ERRY XMAS");
 
         testFahrtenzettel.addFahrt(ersteFahrt);
+        testFahrtenzettel.addFahrt(dritteFahrt);
         testFahrtenzettel.addFahrt(zweiteFahrt);
 
         return testFahrtenzettel;

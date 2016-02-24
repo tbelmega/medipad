@@ -2,8 +2,7 @@ package pardertec.de.medipad.fahrtenbuch.model;
 
 import org.junit.Test;
 
-import java.util.Map;
-import java.util.UUID;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -36,8 +35,9 @@ public class FahrtenzettelTest {
         Fahrtenzettel zettel = new Fahrtenzettel();
         zettel.addFahrt(fahrt);
 
-        Map<UUID, Fahrt> fahrten = zettel.getFahrten();
-        assertEquals(fahrt, fahrten.get(fahrt.uuid));
+        List<Fahrt> fahrten = zettel.getFahrten();
+        assertEquals(fahrt, fahrten.get(0));
+
     }
 
 

@@ -22,8 +22,8 @@ public class FahrtTest{
         fahrt.setKilometerBeginn(KILOMETER_BEGINN);
         fahrt.setZiel(ADRESS_STRING);
 
-        long abfahrt = System.currentTimeMillis();
-        long ankunft = abfahrt + 10000;
+        Long abfahrt = System.currentTimeMillis();
+        Long ankunft = abfahrt + 10000;
 
         fahrt.setAbfahrtszeit(abfahrt);
         fahrt.setAnkunftszeit(ankunft);
