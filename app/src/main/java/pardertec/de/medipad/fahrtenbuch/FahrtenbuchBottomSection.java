@@ -62,7 +62,7 @@ public class FahrtenbuchBottomSection extends Fragment {
     }
 
     public void enableButtonsDependingOnLastFahrt(Fahrt lastFahrt) {
-        if (lastFahrt.arrived()){
+        if (lastFahrt == null || lastFahrt.arrived()){
             enableNewButtonOnly();
         } else if (lastFahrt.departed()) {
             enableArriveButtonOnly();
