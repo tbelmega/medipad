@@ -47,13 +47,20 @@ public class FahrtenbuchActivity extends AppCompatActivity implements BottomSect
         //just for testing purposes. should load existing data
         fahrtenzettel = getTestFahrtenzettel();
 
-        renderFahrtenzettel();
+        updateFahrtenzettel();
+    }
+
+    private void activateBottomButtons() {
+        Fahrt lastFahrt = fahrtenzettel.getLastFahrt();
+
+        FahrtenbuchBottomSection bottomSection = (FahrtenbuchBottomSection) getFragmentManager().findFragmentById(R.id.bottom_fragment);
+        bottomSection.enableButtonsDependingOnLastFahrt(lastFahrt);
     }
 
     /**
      * Dynamicly creates lines for the entries of a Fahrtenzettel
      */
-    private void renderFahrtenzettel() {
+    private void updateFahrtenzettel() {
         RelativeLayout fahrtenbuchLayout = (RelativeLayout) this.findViewById(R.id.root_layout);
 
         int previousLine = R.id.kilometer_label;
@@ -81,6 +88,7 @@ public class FahrtenbuchActivity extends AppCompatActivity implements BottomSect
             addInfCheckBox(fahrtenbuchLayout, lineIndex, currentFahrt);
         }
 
+        activateBottomButtons();
     }
 
     private void renderAddressTextView(RelativeLayout fahrtenbuchLayout, int previousLine, int lineIndex, Fahrt currentFahrt) {
@@ -207,7 +215,7 @@ public class FahrtenbuchActivity extends AppCompatActivity implements BottomSect
     //// DUMMY DATA
     //////////////////////////////////////////
 
-    public Fahrtenzettel getTestFahrtenzettel() {
+    public static Fahrtenzettel getTestFahrtenzettel() {
         Fahrt ersteFahrt = new Fahrt();
         ersteFahrt.setAbfahrtszeit(System.currentTimeMillis() - 1000000);
         ersteFahrt.setAnkunftszeit(System.currentTimeMillis());
@@ -239,18 +247,33 @@ public class FahrtenbuchActivity extends AppCompatActivity implements BottomSect
         return testFahrtenzettel;
     }
 
+
+    ///////////////////////////////////////////
+    //// BOTTOM SECTION LISTENER METHODS
+    //////////////////////////////////////////
+
     @Override
     public void addFahrt() {
-        //TODO
+        Fahrt nextFahrt = new Fahrt();
+
+        //TODO Eingabe von Werten; zwischenzeitlich Demo-Daten
+        nextFahrt.setKilometerBeginn(fahrtenzettel.getLastFahrt().getKilometerBeginn() + 15);
+        nextFahrt.setZiel(Integer.toString(nextFahrt.hashCode()));
+
+        this.fahrtenzettel.addFahrt(nextFahrt);
+
+        this.updateFahrtenzettel();
     }
 
     @Override
     public void departNow() {
-        //TODO
+        this.fahrtenzettel.getLastFahrt().setAbfahrtszeit(System.currentTimeMillis());
+        this.updateFahrtenzettel();
     }
 
     @Override
     public void arriveNow() {
-        //TODO
+        this.fahrtenzettel.getLastFahrt().setAnkunftszeit(System.currentTimeMillis());
+        this.updateFahrtenzettel();
     }
 }

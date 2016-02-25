@@ -4,6 +4,7 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
+import static junit.framework.Assert.assertTrue;
 import static junit.framework.TestCase.assertNotNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -49,6 +50,28 @@ public class FahrtTest{
         Assert.assertEquals("", fahrt.getZiel());
         assertFalse(fahrt.getSonderrechte());
         assertFalse(fahrt.getInf());
+    }
+
+    @Test
+    public void testThatArrivedReturnsTrue(){
+        Fahrt fahrt = new Fahrt();
+
+        assertFalse(fahrt.arrived());
+
+        fahrt.setAnkunftszeit(System.currentTimeMillis());
+
+        assertTrue(fahrt.arrived());
+    }
+
+    @Test
+    public void testThatDepartedReturnsTrue(){
+        Fahrt fahrt = new Fahrt();
+
+        assertFalse(fahrt.departed());
+
+        fahrt.setAbfahrtszeit(System.currentTimeMillis());
+
+        assertTrue(fahrt.departed());
     }
 
 

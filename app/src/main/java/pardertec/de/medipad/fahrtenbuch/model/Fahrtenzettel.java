@@ -45,4 +45,9 @@ public class Fahrtenzettel {
         Collections.sort(fahrten);
         return new LinkedList<>(fahrten);
     }
+
+    public Fahrt getLastFahrt() {
+        Collections.sort(fahrten);
+        return this.fahrten.get(this.fahrten.size() - 1);
+    }
 }

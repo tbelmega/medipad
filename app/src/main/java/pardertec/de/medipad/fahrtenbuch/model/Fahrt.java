@@ -10,8 +10,8 @@ public class Fahrt implements Comparable<Fahrt> {
 
     private String ziel = "";
     private Integer kilometerBeginn = 0;
-    private Long abfahrtszeit;
-    private Long ankunftszeit;
+    private Long abfahrtszeit = null;
+    private Long ankunftszeit = null;
     private boolean sonderrechte = false;
     private boolean inf = false;
     public final UUID uuid;
@@ -77,5 +77,13 @@ public class Fahrt implements Comparable<Fahrt> {
     @Override
     public int compareTo(Fahrt another) {
         return this.kilometerBeginn.compareTo(another.kilometerBeginn);
+    }
+
+    public boolean arrived() {
+        return this.ankunftszeit != null;
+    }
+
+    public boolean departed() {
+        return this.abfahrtszeit != null && this.ankunftszeit == null;
     }
 }

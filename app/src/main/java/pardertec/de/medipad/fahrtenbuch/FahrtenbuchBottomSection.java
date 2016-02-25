@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import pardertec.de.medipad.R;
+import pardertec.de.medipad.fahrtenbuch.model.Fahrt;
 
 /**
  * Created by Thiemo on 24.02.2016.
@@ -24,11 +25,10 @@ public class FahrtenbuchBottomSection extends Fragment {
     private BottomSectionListener activityCommander;
 
     public interface BottomSectionListener{
-        public void addFahrt();
-        public void departNow();
-        public void arriveNow();
+        void addFahrt();
+        void departNow();
+        void arriveNow();
     }
-
 
 
     @Nullable
@@ -38,11 +38,17 @@ public class FahrtenbuchBottomSection extends Fragment {
 
         neueFahrt = (Button) view.findViewById(R.id.neue_fahrt_button);
         neueFahrt.setOnClickListener(getNeueFahrtButtonListener());
+
         abfahrt = (Button) view.findViewById(R.id.abfahrt_button);
+        abfahrt.setOnClickListener(getAbfahrtButtonListener());
+
         ankunft = (Button) view.findViewById(R.id.ankunft_button);
+        ankunft.setOnClickListener(getAnkunftButtonListener());
 
         return view;
     }
+
+
 
     @Override
     public void onAttach(Activity activity) {
@@ -55,8 +61,61 @@ public class FahrtenbuchBottomSection extends Fragment {
         }
     }
 
-    //TODO
-    private View.OnClickListener getNeueFahrtButtonListener() {
-        return null;
+    public void enableButtonsDependingOnLastFahrt(Fahrt lastFahrt) {
+        if (lastFahrt.arrived()){
+            enableNewButtonOnly();
+        } else if (lastFahrt.departed()) {
+            enableArriveButtonOnly();
+        } else {
+            enableDepartButtonOnly();
+        }
     }
+
+    void enableNewButtonOnly() {
+        neueFahrt.setEnabled(true);
+        abfahrt.setEnabled(false);
+        ankunft.setEnabled(false);
+    }
+
+    void enableArriveButtonOnly() {
+        neueFahrt.setEnabled(false);
+        abfahrt.setEnabled(false);
+        ankunft.setEnabled(true);
+    }
+
+    void enableDepartButtonOnly() {
+        neueFahrt.setEnabled(false);
+        abfahrt.setEnabled(true);
+        ankunft.setEnabled(false);
+    }
+
+
+    private View.OnClickListener getNeueFahrtButtonListener() {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activityCommander.addFahrt();
+            }
+        };
+    }
+
+    private View.OnClickListener getAnkunftButtonListener() {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activityCommander.arriveNow();
+            }
+        };
+    }
+
+    private View.OnClickListener getAbfahrtButtonListener() {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activityCommander.departNow();
+            }
+        };
+    }
+
+
 }

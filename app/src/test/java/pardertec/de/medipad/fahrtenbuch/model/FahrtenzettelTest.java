@@ -40,5 +40,24 @@ public class FahrtenzettelTest {
 
     }
 
+    @Test
+    public void testThatFahrtenZettelReturnsLastFahrt(){
+        Fahrt fahrt1 = new Fahrt();
+        fahrt1.setKilometerBeginn(0);
+        Fahrt fahrt2 = new Fahrt();
+        fahrt2.setKilometerBeginn(10);
+        Fahrt fahrt3 = new Fahrt();
+        fahrt3.setKilometerBeginn(20);
+
+        Fahrtenzettel zettel = new Fahrtenzettel();
+        zettel.addFahrt(fahrt2);
+        zettel.addFahrt(fahrt3);
+        zettel.addFahrt(fahrt1);
+
+        Fahrt lastFahrt = zettel.getLastFahrt();
+
+        assertEquals(fahrt3, lastFahrt);
+    }
+
 
 }
