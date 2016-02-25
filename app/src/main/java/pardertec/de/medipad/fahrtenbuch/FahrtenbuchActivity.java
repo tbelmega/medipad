@@ -18,11 +18,12 @@ import java.util.List;
 import java.util.Map;
 
 import pardertec.de.medipad.R;
+import pardertec.de.medipad.fahrtenbuch.FahrtenbuchTopSection.TopSectionListener;
 import pardertec.de.medipad.fahrtenbuch.model.Fahrt;
 import pardertec.de.medipad.fahrtenbuch.model.Fahrtenzettel;
 import static pardertec.de.medipad.fahrtenbuch.FahrtenbuchBottomSection.BottomSectionListener;
 
-public class FahrtenbuchActivity extends AppCompatActivity implements BottomSectionListener {
+public class FahrtenbuchActivity extends AppCompatActivity implements BottomSectionListener, TopSectionListener {
 
     public static final String TAG = "MediPad.Fahrtenbuch";
 
@@ -47,7 +48,7 @@ public class FahrtenbuchActivity extends AppCompatActivity implements BottomSect
         //just for testing purposes. should load existing data
         fahrtenzettel = getTestFahrtenzettel();
 
-        updateFahrtenzettel();
+        updateFahrtenzettelView();
     }
 
     private void activateBottomButtons() {
@@ -60,7 +61,7 @@ public class FahrtenbuchActivity extends AppCompatActivity implements BottomSect
     /**
      * Dynamicly creates lines for the entries of a Fahrtenzettel
      */
-    private void updateFahrtenzettel() {
+    private void updateFahrtenzettelView() {
         RelativeLayout fahrtenbuchLayout = (RelativeLayout) this.findViewById(R.id.root_layout);
 
         int previousLine = R.id.kilometer_label;
@@ -257,23 +258,40 @@ public class FahrtenbuchActivity extends AppCompatActivity implements BottomSect
         Fahrt nextFahrt = new Fahrt();
 
         //TODO Eingabe von Werten; zwischenzeitlich Demo-Daten
-        nextFahrt.setKilometerBeginn(fahrtenzettel.getLastFahrt().getKilometerBeginn() + 15);
+        int kilometer = fahrtenzettel.getLastFahrt() == null? 0 : fahrtenzettel.getLastFahrt().getKilometerBeginn();
+        nextFahrt.setKilometerBeginn(kilometer + 15);
         nextFahrt.setZiel(Integer.toString(nextFahrt.hashCode()));
 
         this.fahrtenzettel.addFahrt(nextFahrt);
 
-        this.updateFahrtenzettel();
+        this.updateFahrtenzettelView();
     }
 
     @Override
     public void departNow() {
         this.fahrtenzettel.getLastFahrt().setAbfahrtszeit(System.currentTimeMillis());
-        this.updateFahrtenzettel();
+        this.updateFahrtenzettelView();
     }
 
     @Override
     public void arriveNow() {
         this.fahrtenzettel.getLastFahrt().setAnkunftszeit(System.currentTimeMillis());
-        this.updateFahrtenzettel();
+        this.updateFahrtenzettelView();
+    }
+
+
+    ///////////////////////////////////////////
+    //// TOP SECTION LISTENER METHODS
+    //////////////////////////////////////////
+
+    @Override
+    public void clearSheet() {
+        this.fahrtenzettel = new Fahrtenzettel();
+        this.updateFahrtenzettelView();
+    }
+
+    @Override
+    public void modifySheetData() {
+        //TODO open new activity
     }
 }
