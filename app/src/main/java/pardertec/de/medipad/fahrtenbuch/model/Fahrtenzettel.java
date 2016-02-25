@@ -47,6 +47,10 @@ public class Fahrtenzettel {
     }
 
     public Fahrt getLastFahrt() {
+        if (this.fahrten.size() == 0) {
+            return null;
+        }
+
         Collections.sort(fahrten);
         return this.fahrten.get(this.fahrten.size() - 1);
     }

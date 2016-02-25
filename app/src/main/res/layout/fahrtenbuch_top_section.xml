@@ -66,12 +66,13 @@
         android:background="@drawable/paramedic_logo"/>
 
     <Button
-        android:id="@+id/neu_button"
+        android:id="@+id/neues_blatt_button"
         android:layout_width="150dp"
         android:layout_height="60dp"
         android:layout_centerVertical="true"
         android:layout_margin="5dp"
         android:layout_toLeftOf="@id/logo"
+        android:enabled="false"
         android:text="Neues Fahrtenblatt"/>
 
     <Button
@@ -80,7 +81,8 @@
         android:layout_height="60dp"
         android:layout_centerVertical="true"
         android:layout_margin="5dp"
-        android:layout_toLeftOf="@id/neu_button"
+        android:layout_toLeftOf="@id/neues_blatt_button"
+        android:enabled="false"
         android:text="Bearbeiten"/>
 
 </RelativeLayout>

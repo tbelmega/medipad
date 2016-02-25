@@ -294,4 +294,9 @@ public class FahrtenbuchActivity extends AppCompatActivity implements BottomSect
     public void modifySheetData() {
         //TODO open new activity
     }
+
+    @Override
+    public void playHymn() {
+        //TODO play music
+    }
 }
