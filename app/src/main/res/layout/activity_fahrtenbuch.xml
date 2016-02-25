@@ -18,6 +18,15 @@
         tools:layout="@layout/fahrtenbuch_top_section" />
 
     <fragment
+        android:id="@+id/middle_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:name="pardertec.de.medipad.fahrtenbuch.FahrtenbuchMiddleSection"
+        android:layout_below="@+id/top_fragment"
+        android:layout_centerHorizontal="true"
+        tools:layout="@layout/fahrtenbuch_middle_section" />
+
+    <fragment
         android:id="@+id/bottom_fragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -26,52 +35,7 @@
         android:layout_centerHorizontal="true"
         tools:layout="@layout/fahrtenbuch_bottom_section" />
 
-    <TextView
-        android:id="@+id/kilometer_label"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/top_fragment"
-        android:text="Kilometer"/>
 
-    <TextView
-        android:id="@+id/adresse_label"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/kilometer_label"
-        android:layout_toRightOf="@+id/kilometer_label"
-        android:text="Zieladresse"/>
-
-    <TextView
-        android:id="@+id/abfahrt_label"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/kilometer_label"
-        android:layout_toRightOf="@+id/adresse_label"
-        android:text="Abfahrt"/>
-
-    <TextView
-        android:id="@+id/ankunft_label"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/kilometer_label"
-        android:layout_toRightOf="@+id/abfahrt_label"
-        android:text="Ankunft"/>
-
-    <TextView
-        android:id="@+id/sonderrechte_label"
-        android:layout_width="50dp"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/kilometer_label"
-        android:layout_toRightOf="@+id/ankunft_label"
-        android:text="SR"/>
-
-    <TextView
-        android:id="@+id/inf_label"
-        android:layout_width="50dp"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/kilometer_label"
-        android:layout_toRightOf="@+id/sonderrechte_label"
-        android:text="Inf"/>
 
 
 </RelativeLayout>
