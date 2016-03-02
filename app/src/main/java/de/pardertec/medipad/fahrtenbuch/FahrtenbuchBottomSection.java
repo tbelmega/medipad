@@ -10,8 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import pardertec.de.medipad.R;
+import de.pardertec.medipad.R;
 import de.pardertec.medipad.fahrtenbuch.model.Fahrt;
+
+import static de.pardertec.medipad.MedipadApplication.TAG;
 
 /**
  * Created by Thiemo on 24.02.2016.
@@ -54,7 +56,7 @@ public class FahrtenbuchBottomSection extends Fragment {
         try {
             this.activityCommander = (BottomSectionListener) activity;
         } catch (ClassCastException e) {
-            Log.e(FahrtenbuchActivity.TAG, "Could not cast activity to BottomSectionListener");
+            Log.e(TAG, "Could not cast activity to BottomSectionListener");
             throw e;
         }
     }

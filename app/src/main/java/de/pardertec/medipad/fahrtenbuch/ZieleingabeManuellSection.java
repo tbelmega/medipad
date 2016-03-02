@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import pardertec.de.medipad.R;
+import de.pardertec.medipad.R;
 
 /**
  * Created by Thiemo on 28.02.2016.

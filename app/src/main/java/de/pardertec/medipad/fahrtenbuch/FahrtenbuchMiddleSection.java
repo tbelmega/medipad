@@ -21,9 +21,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import pardertec.de.medipad.R;
+import de.pardertec.medipad.R;
 import de.pardertec.medipad.fahrtenbuch.model.Fahrt;
 import de.pardertec.medipad.fahrtenbuch.model.Fahrtenzettel;
+
+import static de.pardertec.medipad.MedipadApplication.TAG;
 
 /**
  * Created by Thiemo on 25.02.2016.
@@ -64,7 +66,7 @@ public class FahrtenbuchMiddleSection extends Fragment {
         try {
             this.activityCommander = (MiddleSectionListener) activity;
         } catch (ClassCastException e) {
-            Log.e(FahrtenbuchActivity.TAG, "Could not cast activity to MiddleSectionListener");
+            Log.e(TAG, "Could not cast activity to MiddleSectionListener");
             throw e;
         }
     }
@@ -239,7 +241,7 @@ public class FahrtenbuchMiddleSection extends Fragment {
                         default: throw new IllegalArgumentException("Unexpected offset " + offset);
                     }
                 } else {
-                    Log.e(FahrtenbuchActivity.TAG, "Could not find Fahrt with id " + id);
+                    Log.e(TAG, "Could not find Fahrt with id " + id);
                 }
             }
         };

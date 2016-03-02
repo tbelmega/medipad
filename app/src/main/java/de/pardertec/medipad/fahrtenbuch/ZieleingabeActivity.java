@@ -6,7 +6,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
-import pardertec.de.medipad.R;
+import de.pardertec.medipad.R;
+
+import static de.pardertec.medipad.MedipadApplication.EXTRA_ADRESSE;
+import static de.pardertec.medipad.MedipadApplication.EXTRA_KILOMETERSTAND;
 
 public class ZieleingabeActivity extends Activity {
 
@@ -28,11 +31,11 @@ public class ZieleingabeActivity extends Activity {
 
         EditText kilometerInput = (EditText)findViewById(R.id.kilometerstand_edit);
         int eingegebenerKilometerstand = Integer.parseInt(kilometerInput.getText().toString());
-        intent.putExtra("kilometerstand", eingegebenerKilometerstand);
+        intent.putExtra(EXTRA_KILOMETERSTAND, eingegebenerKilometerstand);
 
         EditText adresseInput = (EditText)findViewById(R.id.adresse_edit);
         String adresse = adresseInput.getText().toString();
-        intent.putExtra("adresse", adresse);
+        intent.putExtra(EXTRA_ADRESSE, adresse);
 
         startActivity(intent);
     }

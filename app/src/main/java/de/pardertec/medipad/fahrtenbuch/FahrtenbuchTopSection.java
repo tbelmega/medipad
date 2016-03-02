@@ -12,8 +12,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import pardertec.de.medipad.R;
 import de.pardertec.medipad.fahrtenbuch.model.Fahrtenzettel;
+import de.pardertec.medipad.R;
 
 /**
  * Created by Thiemo on 24.02.2016.
