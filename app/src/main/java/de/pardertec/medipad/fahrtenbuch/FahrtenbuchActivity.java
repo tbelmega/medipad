@@ -1,4 +1,4 @@
-package pardertec.de.medipad.fahrtenbuch;
+package de.pardertec.medipad.fahrtenbuch;
 
 
 import android.content.Intent;
@@ -7,16 +7,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import pardertec.de.medipad.R;
-import pardertec.de.medipad.fahrtenbuch.model.Fahrt;
-import pardertec.de.medipad.fahrtenbuch.model.Fahrtenzettel;
+import de.pardertec.medipad.fahrtenbuch.model.Fahrt;
+import de.pardertec.medipad.fahrtenbuch.model.Fahrtenzettel;
 
-import pardertec.de.medipad.fahrtenbuch.FahrtenbuchTopSection.TopSectionListener;
-import pardertec.de.medipad.fahrtenbuch.FahrtenbuchBottomSection.BottomSectionListener;
-import pardertec.de.medipad.fahrtenbuch.FahrtenbuchMiddleSection.MiddleSectionListener;
+import de.pardertec.medipad.fahrtenbuch.FahrtenbuchTopSection.TopSectionListener;
+import de.pardertec.medipad.fahrtenbuch.FahrtenbuchBottomSection.BottomSectionListener;
+import de.pardertec.medipad.fahrtenbuch.FahrtenbuchMiddleSection.MiddleSectionListener;
 
 public class FahrtenbuchActivity extends AppCompatActivity implements BottomSectionListener, TopSectionListener, MiddleSectionListener {
 
     public static final String TAG = "MediPad.Fahrtenbuch";
+    public static final String EXTRA_KILOMETERSTAND = "kilometerstand";
+    public static final String EXTRA_ADRESSE = "adresse";
 
     //just for testing purposes. should load existing data
     private Fahrtenzettel fahrtenzettel = getTestFahrtenzettel();
@@ -42,8 +44,8 @@ public class FahrtenbuchActivity extends AppCompatActivity implements BottomSect
 
         Intent intent = getIntent();
 
-        int kilometer = intent.getIntExtra("kilometerstand", 0);
-        String adresse = intent.getStringExtra("adresse");
+        int kilometer = intent.getIntExtra(EXTRA_KILOMETERSTAND, 0);
+        String adresse = intent.getStringExtra(EXTRA_ADRESSE);
 
         if (adresse != null) addFahrt(kilometer, adresse);
     }

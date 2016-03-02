@@ -1,4 +1,4 @@
-package pardertec.de.medipad;
+package de.pardertec.medipad;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

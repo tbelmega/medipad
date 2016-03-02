@@ -1,4 +1,4 @@
-package pardertec.de.medipad.fahrtenbuch.model;
+package de.pardertec.medipad.fahrtenbuch.model;
 
 import java.util.Collections;
 import java.util.LinkedList;

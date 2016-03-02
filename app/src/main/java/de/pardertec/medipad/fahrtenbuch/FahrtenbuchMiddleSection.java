@@ -1,4 +1,4 @@
-package pardertec.de.medipad.fahrtenbuch;
+package de.pardertec.medipad.fahrtenbuch;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -22,8 +22,8 @@ import java.util.List;
 import java.util.Map;
 
 import pardertec.de.medipad.R;
-import pardertec.de.medipad.fahrtenbuch.model.Fahrt;
-import pardertec.de.medipad.fahrtenbuch.model.Fahrtenzettel;
+import de.pardertec.medipad.fahrtenbuch.model.Fahrt;
+import de.pardertec.medipad.fahrtenbuch.model.Fahrtenzettel;
 
 /**
  * Created by Thiemo on 25.02.2016.

@@ -9,7 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".fahrtenbuch.FahrtenbuchActivity"
+            android:name="de.pardertec.medipad.fahrtenbuch.FahrtenbuchActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" >
             <intent-filter>
@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".fahrtenbuch.ZieleingabeActivity"
+            android:name="de.pardertec.medipad.fahrtenbuch.ZieleingabeActivity"
             android:label="@string/title_activity_zieleingabe_activity" >
         </activity>
     </application>
