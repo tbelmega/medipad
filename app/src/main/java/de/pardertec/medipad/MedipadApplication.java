@@ -19,12 +19,15 @@ public class MedipadApplication extends Application {
 
     private Fahrtenbuch theFahrtenbuch = new Fahrtenbuch();
 
+
+    public MedipadApplication() {
+        //TODO: Remove dummy data, load actual data
+        this.theFahrtenbuch.addFahrtenzettel(getTestFahrtenzettel());
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
-
-        //TODO: Remove dummy data, load actual data
-        theFahrtenbuch.addFahrtenzettel(getTestFahrtenzettel());
     }
 
     @Override
