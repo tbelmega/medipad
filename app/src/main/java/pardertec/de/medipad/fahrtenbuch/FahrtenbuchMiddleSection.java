@@ -2,10 +2,12 @@ package pardertec.de.medipad.fahrtenbuch;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,7 +44,6 @@ public class FahrtenbuchMiddleSection extends Fragment {
     public static final DateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat();
 
     MiddleSectionListener activityCommander;
-    private View view;
 
     public interface MiddleSectionListener{
         void activateBottomButtons();
@@ -52,8 +53,7 @@ public class FahrtenbuchMiddleSection extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fahrtenbuch_middle_section, container, false);
-
+        View view = inflater.inflate(R.layout.fahrtenbuch_middle_section, container, false);
         return view;
     }
 
@@ -69,16 +69,33 @@ public class FahrtenbuchMiddleSection extends Fragment {
         }
     }
 
-    /**
-     * Dynamicly creates lines for the entries of a Fahrtenzettel
-     */
-    void updateFahrtenzettelView(Fahrtenzettel fahrtenzettel) {
-        RelativeLayout activityLayout = (RelativeLayout) view.findViewById(R.id.middle_fragment);
-        int previousLine = R.id.kilometer_label;
 
+    void updateFahrtenzettelView(Fahrtenzettel fahrtenzettel) {
+        //TODO: Move this to activity
         FahrtenbuchTopSection topSection = (FahrtenbuchTopSection) getFragmentManager().findFragmentById(R.id.top_fragment);
         topSection.setFahrtenzettelData(fahrtenzettel);
 
+
+        RelativeLayout fahrtenZettelLayout = (RelativeLayout) this.getActivity().findViewById(R.id.middle_fragment);
+        fahrtenZettelLayout.removeAllViewsInLayout();
+
+        displayCaptions(fahrtenZettelLayout);
+        displayElements(fahrtenzettel, fahrtenZettelLayout, R.id.kilometer_label);
+
+        //TODO: Move this to activity
+        activityCommander.activateBottomButtons();
+    }
+
+    private void displayCaptions(RelativeLayout fahrtenZettelLayout) {
+        renderCaptionLabel(fahrtenZettelLayout, R.id.kilometer_label, R.string.kilometer_label, 100, null);
+        renderCaptionLabel(fahrtenZettelLayout, R.id.adresse_label, R.string.adresse_label, 300, R.id.kilometer_label);
+        renderCaptionLabel(fahrtenZettelLayout, R.id.abfahrt_label, R.string.abfahrt_label, 150, R.id.adresse_label);
+        renderCaptionLabel(fahrtenZettelLayout, R.id.ankunft_label, R.string.ankunft_label, 150, R.id.abfahrt_label);
+        renderCaptionLabel(fahrtenZettelLayout, R.id.sonderrechte_label, R.string.sonderrechte_label, 100, R.id.ankunft_label);
+        renderCaptionLabel(fahrtenZettelLayout, R.id.inf_label, R.string.inf_label, 100, R.id.sonderrechte_label);
+    }
+
+    private void displayElements(Fahrtenzettel fahrtenzettel, RelativeLayout fahrtenZettelLayout, int previousLine) {
         // Display elements
         List<Fahrt> fahrten = fahrtenzettel.getFahrten();
         for (int i = 0; i < fahrten.size(); i++){
@@ -88,22 +105,45 @@ public class FahrtenbuchMiddleSection extends Fragment {
             //create relation from line index to data object
             lineTable.put(lineIndex, currentFahrt);
 
-            renderAddressTextView(activityLayout, previousLine, lineIndex, currentFahrt);
+            renderAddressTextView(fahrtenZettelLayout, previousLine, lineIndex, currentFahrt);
             previousLine = lineIndex;
 
-            renderKilometerTextView(activityLayout, lineIndex, currentFahrt);
-            renderAbfahrtTextView(activityLayout, lineIndex, currentFahrt);
-            renderAnkunftTextView(activityLayout, lineIndex, currentFahrt);
+            renderKilometerTextView(fahrtenZettelLayout, lineIndex, currentFahrt);
+            renderAbfahrtTextView(fahrtenZettelLayout, lineIndex, currentFahrt);
+            renderAnkunftTextView(fahrtenZettelLayout, lineIndex, currentFahrt);
 
-            addSonderrechteCheckBox(activityLayout, lineIndex, currentFahrt);
-            addInfCheckBox(activityLayout, lineIndex, currentFahrt);
+            addSonderrechteCheckBox(fahrtenZettelLayout, lineIndex, currentFahrt);
+            addInfCheckBox(fahrtenZettelLayout, lineIndex, currentFahrt);
         }
-
-        activityCommander.activateBottomButtons();
     }
 
-    private void renderAddressTextView(RelativeLayout fahrtenbuchLayout, int previousLine, int lineIndex, Fahrt currentFahrt) {
-        TextView targetAddress = new TextView(view.getContext());
+
+    private void renderCaptionLabel(RelativeLayout fahrtenZettelLayout, int id, int label, int width, Integer toTheRightOfId) {
+        TextView targetAddress = new TextView(this.getActivity());
+        targetAddress.setId(id);
+        targetAddress.setText(label);
+
+        targetAddress.setWidth(convertToDip(width));
+
+        RelativeLayout.LayoutParams addressDetails = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.WRAP_CONTENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT
+        );
+        addressDetails.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+        if (toTheRightOfId == null) {
+            addressDetails.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+        } else {
+            addressDetails.addRule(RelativeLayout.RIGHT_OF, toTheRightOfId);
+        }
+        addressDetails.setMargins(LEFT, TOP, RIGHT, BOTTOM);
+
+        fahrtenZettelLayout.addView(targetAddress, addressDetails);
+    }
+
+
+
+    private void renderAddressTextView(RelativeLayout fahrtenZettelLayout, int previousLine, int lineIndex, Fahrt currentFahrt) {
+        TextView targetAddress = new TextView(this.getActivity());
         targetAddress.setId(lineIndex);
         targetAddress.setText(currentFahrt.getZiel());
 
@@ -112,37 +152,37 @@ public class FahrtenbuchMiddleSection extends Fragment {
         addressDetails.addRule(RelativeLayout.BELOW, previousLine);
         addressDetails.setMargins(LEFT, TOP, RIGHT, BOTTOM);
 
-        fahrtenbuchLayout.addView(targetAddress, addressDetails);
+        fahrtenZettelLayout.addView(targetAddress, addressDetails);
     }
 
-    private void renderKilometerTextView(RelativeLayout fahrtenbuchLayout, int lineIndex, Fahrt currentFahrt) {
-        TextView kilometer = new TextView(view.getContext());
+    private void renderKilometerTextView(RelativeLayout fahrtenZettelLayout, int lineIndex, Fahrt currentFahrt) {
+        TextView kilometer = new TextView(this.getActivity());
         kilometer.setId(lineIndex + 1);
         kilometer.setText(Integer.toString(currentFahrt.getKilometerBeginn()));
 
-        fahrtenbuchLayout.addView(kilometer, getTextViewLayoutParams(lineIndex, R.id.kilometer_label));
+        fahrtenZettelLayout.addView(kilometer, getTextViewLayoutParams(lineIndex, R.id.kilometer_label));
     }
 
-    private void renderAbfahrtTextView(RelativeLayout fahrtenbuchLayout, int lineIndex, Fahrt currentFahrt) {
-        TextView abfahrt = new TextView(view.getContext());
+    private void renderAbfahrtTextView(RelativeLayout fahrtenZettelLayout, int lineIndex, Fahrt currentFahrt) {
+        TextView abfahrt = new TextView(this.getActivity());
         abfahrt.setId(lineIndex + 2);
         Long abfahrtData = currentFahrt.getAbfahrtszeit();
         if (abfahrtData != null) {
             abfahrt.setText(SIMPLE_DATE_FORMAT.format(currentFahrt.getAbfahrtszeit()));
         }
 
-        fahrtenbuchLayout.addView(abfahrt, getTextViewLayoutParams(lineIndex, R.id.abfahrt_label));
+        fahrtenZettelLayout.addView(abfahrt, getTextViewLayoutParams(lineIndex, R.id.abfahrt_label));
     }
 
-    private void renderAnkunftTextView(RelativeLayout fahrtenbuchLayout, int lineIndex, Fahrt currentFahrt) {
-        TextView ankunft = new TextView(view.getContext());
+    private void renderAnkunftTextView(RelativeLayout fahrtenZettelLayout, int lineIndex, Fahrt currentFahrt) {
+        TextView ankunft = new TextView(this.getActivity());
         ankunft.setId(lineIndex + 3);
         Long ankunftData = currentFahrt.getAnkunftszeit();
         if (ankunftData != null){
             ankunft.setText(SIMPLE_DATE_FORMAT.format(ankunftData));
         }
 
-        fahrtenbuchLayout.addView(ankunft, getTextViewLayoutParams(lineIndex, R.id.ankunft_label));
+        fahrtenZettelLayout.addView(ankunft, getTextViewLayoutParams(lineIndex, R.id.ankunft_label));
     }
 
 
@@ -158,21 +198,21 @@ public class FahrtenbuchMiddleSection extends Fragment {
     //////////////////////////////////////////
 
 
-    private void addInfCheckBox(RelativeLayout fahrtenbuchLayout, int lineIndex, Fahrt currentFahrt) {
+    private void addInfCheckBox(RelativeLayout fahrtenZettelLayout, int lineIndex, Fahrt currentFahrt) {
         CheckBox inf = createCheckBox(lineIndex, INF_INDEX, currentFahrt.getInf());
         RelativeLayout.LayoutParams infDetails = getCheckboxLayoutParams(lineIndex,  R.id.inf_label);
-        fahrtenbuchLayout.addView(inf, infDetails);
+        fahrtenZettelLayout.addView(inf, infDetails);
     }
 
-    private void addSonderrechteCheckBox(RelativeLayout fahrtenbuchLayout, int lineIndex, Fahrt currentFahrt) {
+    private void addSonderrechteCheckBox(RelativeLayout fahrtenZettelLayout, int lineIndex, Fahrt currentFahrt) {
         CheckBox sonderrechte = createCheckBox(lineIndex, SONDERRECHTE_INDEX, currentFahrt.getSonderrechte());
         RelativeLayout.LayoutParams srDetails = getCheckboxLayoutParams(lineIndex, R.id.sonderrechte_label);
-        fahrtenbuchLayout.addView(sonderrechte, srDetails);
+        fahrtenZettelLayout.addView(sonderrechte, srDetails);
     }
 
     @NonNull
     private CheckBox createCheckBox(int lineIndex,int index, boolean checked) {
-        CheckBox checkBox = new CheckBox(view.getContext());
+        CheckBox checkBox = new CheckBox(this.getActivity());
         checkBox.setId(lineIndex + index);
         checkBox.setChecked(checked);
         checkBox.setOnClickListener(getCheckboxesListener(checkBox));
@@ -219,5 +259,11 @@ public class FahrtenbuchMiddleSection extends Fragment {
         checkboxDetails.addRule(verticalAlignment, lineIndex);
         checkboxDetails.addRule(RelativeLayout.ALIGN_LEFT, captionId);
         return checkboxDetails;
+    }
+
+
+    private int convertToDip(int width) {
+        Resources r = getResources();
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, r.getDisplayMetrics());
     }
 }

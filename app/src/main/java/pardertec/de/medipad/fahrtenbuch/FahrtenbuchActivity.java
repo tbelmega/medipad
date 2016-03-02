@@ -1,8 +1,10 @@
 package pardertec.de.medipad.fahrtenbuch;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 import pardertec.de.medipad.R;
 import pardertec.de.medipad.fahrtenbuch.model.Fahrt;
@@ -16,8 +18,9 @@ public class FahrtenbuchActivity extends AppCompatActivity implements BottomSect
 
     public static final String TAG = "MediPad.Fahrtenbuch";
 
+    //just for testing purposes. should load existing data
+    private Fahrtenzettel fahrtenzettel = getTestFahrtenzettel();
 
-    private Fahrtenzettel fahrtenzettel;
     private FahrtenbuchBottomSection bottomSection;
     private FahrtenbuchMiddleSection middleSection;
 
@@ -29,10 +32,20 @@ public class FahrtenbuchActivity extends AppCompatActivity implements BottomSect
         bottomSection = (FahrtenbuchBottomSection) getFragmentManager().findFragmentById(R.id.bottom_fragment);
         middleSection = (FahrtenbuchMiddleSection) getFragmentManager().findFragmentById(R.id.middle_fragment);
 
-        //just for testing purposes. should load existing data
-        fahrtenzettel = getTestFahrtenzettel();
-
         updateFahrtenzettelView();
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        Intent intent = getIntent();
+
+        int kilometer = intent.getIntExtra("kilometerstand", 0);
+        String adresse = intent.getStringExtra("adresse");
+
+        if (adresse != null) addFahrt(kilometer, adresse);
     }
 
 
@@ -88,14 +101,11 @@ public class FahrtenbuchActivity extends AppCompatActivity implements BottomSect
     //// BOTTOM SECTION LISTENER METHODS
     //////////////////////////////////////////
 
-    @Override
-    public void addFahrt() {
+    public void addFahrt(int kilometer, String adresse) {
         Fahrt nextFahrt = new Fahrt();
 
-        //TODO Eingabe von Werten; zwischenzeitlich Demo-Daten
-        int kilometer = fahrtenzettel.getLastFahrt() == null? 0 : fahrtenzettel.getLastFahrt().getKilometerBeginn();
-        nextFahrt.setKilometerBeginn(kilometer + 15);
-        nextFahrt.setZiel(Integer.toString(nextFahrt.hashCode()));
+        nextFahrt.setKilometerBeginn(kilometer);
+        nextFahrt.setZiel(adresse);
 
         this.fahrtenzettel.addFahrt(nextFahrt);
 
@@ -122,6 +132,7 @@ public class FahrtenbuchActivity extends AppCompatActivity implements BottomSect
     @Override
     public void clearSheet() {
         this.fahrtenzettel = new Fahrtenzettel();
+
         this.updateFahrtenzettelView();
     }
 
@@ -145,4 +156,15 @@ public class FahrtenbuchActivity extends AppCompatActivity implements BottomSect
         Fahrt lastFahrt = fahrtenzettel.getLastFahrt();
         bottomSection.enableButtonsDependingOnLastFahrt(lastFahrt);
     }
+
+
+    ///////////////////////////////////////////
+    //// INTENT METHODS
+    //////////////////////////////////////////
+
+    public void sendMessage(View view) {
+        Intent intent = new Intent(this, ZieleingabeActivity.class);
+        startActivity(intent);
+    }
+
 }

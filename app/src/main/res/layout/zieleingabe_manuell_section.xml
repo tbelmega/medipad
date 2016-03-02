@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/kilometerstand_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Kilometerstand"/>
+
+    <EditText
+        android:id="@+id/kilometerstand_edit"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/kilometerstand_label"
+        android:layout_height="60dp"
+        android:inputType="number"/>
+
+    <TextView
+        android:id="@+id/adresse_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/kilometerstand_edit"
+        android:text="Name und Adresse"/>
+
+    <EditText
+        android:id="@+id/adresse_edit"
+        android:lines="6"
+        android:minLines="4"
+        android:gravity="top|left"
+        android:scrollbars="vertical"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/adresse_label"
+        android:layout_height="240dp"
+        android:inputType="textMultiLine"
+        />
+
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:text="Fahrt hinzufügen"
+        android:onClick="addFahrt"/>
+
+
+
+</RelativeLayout>

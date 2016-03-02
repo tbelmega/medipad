@@ -25,7 +25,6 @@ public class FahrtenbuchBottomSection extends Fragment {
     private BottomSectionListener activityCommander;
 
     public interface BottomSectionListener{
-        void addFahrt();
         void departNow();
         void arriveNow();
     }
@@ -37,7 +36,6 @@ public class FahrtenbuchBottomSection extends Fragment {
         View view = inflater.inflate(R.layout.fahrtenbuch_bottom_section, container,false);
 
         neueFahrt = (Button) view.findViewById(R.id.neue_fahrt_button);
-        neueFahrt.setOnClickListener(getNeueFahrtButtonListener());
 
         abfahrt = (Button) view.findViewById(R.id.abfahrt_button);
         abfahrt.setOnClickListener(getAbfahrtButtonListener());
@@ -89,16 +87,6 @@ public class FahrtenbuchBottomSection extends Fragment {
         ankunft.setEnabled(false);
     }
 
-
-    private View.OnClickListener getNeueFahrtButtonListener() {
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                activityCommander.addFahrt();
-            }
-        };
-    }
-
     private View.OnClickListener getAnkunftButtonListener() {
         return new View.OnClickListener() {
             @Override
@@ -116,6 +104,8 @@ public class FahrtenbuchBottomSection extends Fragment {
             }
         };
     }
+
+
 
 
 }

@@ -8,4 +8,11 @@
     <string name="sanitaeterName">Unbenannt</string>
     <string name="kennzeichenText">Unbekannt</string>
     <string name="modify">Bearbeiten</string>
+    <string name="title_activity_zieleingabe_activity">zieleingabe_activity</string>
+    <string name="kilometer_label">Kilometer</string>
+    <string name="sonderrechte_label">SR</string>
+    <string name="adresse_label">Zieladresse</string>
+    <string name="abfahrt_label">Abfahrt</string>
+    <string name="ankunft_label">Ankunft</string>
+    <string name="inf_label">Inf</string>
 </resources>
