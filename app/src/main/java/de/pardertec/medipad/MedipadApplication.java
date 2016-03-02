@@ -1,9 +1,9 @@
 package de.pardertec.medipad;
 
 import android.app.Application;
-import android.widget.Toast;
 
 import de.pardertec.medipad.fahrtenbuch.model.Fahrt;
+import de.pardertec.medipad.fahrtenbuch.model.Fahrtenbuch;
 import de.pardertec.medipad.fahrtenbuch.model.Fahrtenzettel;
 
 /**
@@ -11,15 +11,38 @@ import de.pardertec.medipad.fahrtenbuch.model.Fahrtenzettel;
  */
 public class MedipadApplication extends Application {
 
+    private static final MedipadApplication instance = new MedipadApplication();
+
     public static final String TAG = "MediPad.Fahrtenbuch";
     public static final String EXTRA_KILOMETERSTAND = "kilometerstand";
     public static final String EXTRA_ADRESSE = "adresse";
 
+    private Fahrtenbuch theFahrtenbuch = new Fahrtenbuch();
+
     @Override
     public void onCreate() {
         super.onCreate();
+
+        //TODO: Remove dummy data, load actual data
+        theFahrtenbuch.addFahrtenzettel(getTestFahrtenzettel());
     }
 
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+    }
+
+    public static MedipadApplication getInstance(){
+        return instance;
+    }
+
+    public static Fahrtenzettel getCurrentFahrtenzettel(){
+        return getInstance().theFahrtenbuch.getLastFahrtenzettel();
+    }
+
+    public static void startNewFahrtenZettel() {
+        getInstance().theFahrtenbuch.startFahrtenzettel();
+    }
 
     ///////////////////////////////////////////
     //// DUMMY DATA
@@ -56,4 +79,6 @@ public class MedipadApplication extends Application {
 
         return testFahrtenzettel;
     }
+
+
 }

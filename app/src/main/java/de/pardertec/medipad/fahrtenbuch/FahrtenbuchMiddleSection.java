@@ -45,12 +45,6 @@ public class FahrtenbuchMiddleSection extends Fragment {
     final int BOTTOM = 10;
     public static final DateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat();
 
-    MiddleSectionListener activityCommander;
-
-    public interface MiddleSectionListener{
-        void activateBottomButtons();
-    }
-
 
     @Nullable
     @Override
@@ -59,33 +53,12 @@ public class FahrtenbuchMiddleSection extends Fragment {
         return view;
     }
 
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        try {
-            this.activityCommander = (MiddleSectionListener) activity;
-        } catch (ClassCastException e) {
-            Log.e(TAG, "Could not cast activity to MiddleSectionListener");
-            throw e;
-        }
-    }
-
-
-    void updateFahrtenzettelView(Fahrtenzettel fahrtenzettel) {
-        //TODO: Move this to activity
-        FahrtenbuchTopSection topSection = (FahrtenbuchTopSection) getFragmentManager().findFragmentById(R.id.top_fragment);
-        topSection.setFahrtenzettelData(fahrtenzettel);
-
-
+    public void updateFahrtenListView(Fahrtenzettel fahrtenzettel) {
         RelativeLayout fahrtenZettelLayout = (RelativeLayout) this.getActivity().findViewById(R.id.middle_fragment);
         fahrtenZettelLayout.removeAllViewsInLayout();
 
         displayCaptions(fahrtenZettelLayout);
         displayElements(fahrtenzettel, fahrtenZettelLayout, R.id.kilometer_label);
-
-        //TODO: Move this to activity
-        activityCommander.activateBottomButtons();
     }
 
     private void displayCaptions(RelativeLayout fahrtenZettelLayout) {

@@ -54,4 +54,8 @@ public class Fahrtenzettel {
         Collections.sort(fahrten);
         return this.fahrten.get(this.fahrten.size() - 1);
     }
+
+    public int size() {
+        return this.fahrten.size();
+    }
 }

@@ -15,6 +15,8 @@ import android.widget.TextView;
 import de.pardertec.medipad.fahrtenbuch.model.Fahrtenzettel;
 import de.pardertec.medipad.R;
 
+import static de.pardertec.medipad.MedipadApplication.*;
+
 /**
  * Created by Thiemo on 24.02.2016.
  */
@@ -90,7 +92,7 @@ public class FahrtenbuchTopSection extends Fragment {
         try {
             this.activityCommander = (TopSectionListener) activity;
         } catch (ClassCastException e) {
-            Log.e(FahrtenbuchActivity.TAG, "Could not cast activity to TopSectionListener");
+            Log.e(TAG, "Could not cast activity to TopSectionListener");
             throw e;
         }
     }

@@ -6,33 +6,31 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import de.pardertec.medipad.MedipadApplication;
 import de.pardertec.medipad.R;
 import de.pardertec.medipad.fahrtenbuch.FahrtenbuchBottomSection.BottomSectionListener;
-import de.pardertec.medipad.fahrtenbuch.FahrtenbuchMiddleSection.MiddleSectionListener;
 import de.pardertec.medipad.fahrtenbuch.FahrtenbuchTopSection.TopSectionListener;
 import de.pardertec.medipad.fahrtenbuch.model.Fahrt;
 import de.pardertec.medipad.fahrtenbuch.model.Fahrtenzettel;
 
 import static de.pardertec.medipad.MedipadApplication.EXTRA_ADRESSE;
 import static de.pardertec.medipad.MedipadApplication.EXTRA_KILOMETERSTAND;
-import static de.pardertec.medipad.MedipadApplication.*;
+import static de.pardertec.medipad.MedipadApplication.getCurrentFahrtenzettel;
 
-public class FahrtenbuchActivity extends AppCompatActivity implements BottomSectionListener, TopSectionListener, MiddleSectionListener {
+public class FahrtenbuchActivity extends AppCompatActivity implements BottomSectionListener, TopSectionListener {
 
-
-    //just for testing purposes. should load existing data
-    private Fahrtenzettel fahrtenzettel = getTestFahrtenzettel();
-
-    private FahrtenbuchBottomSection bottomSection;
+    private FahrtenbuchTopSection topSection;
     private FahrtenbuchMiddleSection middleSection;
+    private FahrtenbuchBottomSection bottomSection;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fahrtenbuch);
 
-        bottomSection = (FahrtenbuchBottomSection) getFragmentManager().findFragmentById(R.id.bottom_fragment);
+        topSection = (FahrtenbuchTopSection) getFragmentManager().findFragmentById(R.id.top_fragment);
         middleSection = (FahrtenbuchMiddleSection) getFragmentManager().findFragmentById(R.id.middle_fragment);
+        bottomSection = (FahrtenbuchBottomSection) getFragmentManager().findFragmentById(R.id.bottom_fragment);
 
         updateFahrtenzettelView();
     }
@@ -52,7 +50,13 @@ public class FahrtenbuchActivity extends AppCompatActivity implements BottomSect
 
 
     private void updateFahrtenzettelView() {
-        middleSection.updateFahrtenzettelView(fahrtenzettel);
+        Fahrtenzettel fahrtenzettel = getCurrentFahrtenzettel();
+        if (fahrtenzettel != null) {
+            topSection.setFahrtenzettelData(fahrtenzettel);
+            middleSection.updateFahrtenListView(fahrtenzettel);
+            bottomSection.enableButtonsDependingOnLastFahrt(fahrtenzettel.getLastFahrt());
+        }
+
     }
 
     ///////////////////////////////////////////
@@ -60,25 +64,31 @@ public class FahrtenbuchActivity extends AppCompatActivity implements BottomSect
     //////////////////////////////////////////
 
     public void addFahrt(int kilometer, String adresse) {
-        Fahrt nextFahrt = new Fahrt();
+        Fahrtenzettel fahrtenzettel = getCurrentFahrtenzettel();
+        Fahrt lastFahrt = fahrtenzettel.getLastFahrt();
 
-        nextFahrt.setKilometerBeginn(kilometer);
-        nextFahrt.setZiel(adresse);
+        if (kilometer > lastFahrt.getKilometerBeginn()) {
 
-        this.fahrtenzettel.addFahrt(nextFahrt);
+            Fahrt nextFahrt = new Fahrt();
 
-        this.updateFahrtenzettelView();
+            nextFahrt.setKilometerBeginn(kilometer);
+            nextFahrt.setZiel(adresse);
+
+            fahrtenzettel.addFahrt(nextFahrt);
+
+            this.updateFahrtenzettelView();
+        }
     }
 
     @Override
     public void departNow() {
-        this.fahrtenzettel.getLastFahrt().setAbfahrtszeit(System.currentTimeMillis());
+        getCurrentFahrtenzettel().getLastFahrt().setAbfahrtszeit(System.currentTimeMillis());
         this.updateFahrtenzettelView();
     }
 
     @Override
     public void arriveNow() {
-        this.fahrtenzettel.getLastFahrt().setAnkunftszeit(System.currentTimeMillis());
+        getCurrentFahrtenzettel().getLastFahrt().setAnkunftszeit(System.currentTimeMillis());
         this.updateFahrtenzettelView();
     }
 
@@ -89,7 +99,7 @@ public class FahrtenbuchActivity extends AppCompatActivity implements BottomSect
 
     @Override
     public void clearSheet() {
-        this.fahrtenzettel = new Fahrtenzettel();
+        MedipadApplication.startNewFahrtenZettel();
 
         this.updateFahrtenzettelView();
     }
@@ -102,17 +112,6 @@ public class FahrtenbuchActivity extends AppCompatActivity implements BottomSect
     @Override
     public void playHymn() {
         //TODO play music
-    }
-
-
-    ///////////////////////////////////////////
-    //// MIDDLE SECTION LISTENER METHODS
-    //////////////////////////////////////////
-
-    @Override
-    public void activateBottomButtons() {
-        Fahrt lastFahrt = fahrtenzettel.getLastFahrt();
-        bottomSection.enableButtonsDependingOnLastFahrt(lastFahrt);
     }
 
 
