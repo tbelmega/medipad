@@ -10,6 +10,7 @@ import de.pardertec.medipad.MedipadApplication;
 import de.pardertec.medipad.R;
 import de.pardertec.medipad.fahrtenbuch.FahrtenbuchBottomSection.BottomSectionListener;
 import de.pardertec.medipad.fahrtenbuch.FahrtenbuchTopSection.TopSectionListener;
+import de.pardertec.medipad.fahrtenbuch.input.ZieleingabeActivity;
 import de.pardertec.medipad.fahrtenbuch.model.Fahrt;
 import de.pardertec.medipad.fahrtenbuch.model.Fahrtenzettel;
 

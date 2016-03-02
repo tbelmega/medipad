@@ -15,4 +15,8 @@
     <string name="abfahrt_label">Abfahrt</string>
     <string name="ankunft_label">Ankunft</string>
     <string name="inf_label">Inf</string>
+    <string name="text_kennzeichen">Kennzeichen</string>
+    <string name="text_fahrer">Fahrer</string>
+    <string name="text_sanitaeter">Sanitäter</string>
+    <string name="abort">Abbrechen</string>
 </resources>

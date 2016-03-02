@@ -20,7 +20,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="de.pardertec.medipad.fahrtenbuch.ZieleingabeActivity"
+            android:name=".fahrtenbuch.input.ZieleingabeActivity"
             android:label="@string/title_activity_zieleingabe_activity" >
         </activity>
     </application>

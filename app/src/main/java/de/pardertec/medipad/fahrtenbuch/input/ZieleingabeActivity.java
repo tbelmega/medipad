@@ -1,4 +1,4 @@
-package de.pardertec.medipad.fahrtenbuch;
+package de.pardertec.medipad.fahrtenbuch.input;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import de.pardertec.medipad.R;
+import de.pardertec.medipad.fahrtenbuch.FahrtenbuchActivity;
 
 import static de.pardertec.medipad.MedipadApplication.EXTRA_ADRESSE;
 import static de.pardertec.medipad.MedipadApplication.EXTRA_KILOMETERSTAND;

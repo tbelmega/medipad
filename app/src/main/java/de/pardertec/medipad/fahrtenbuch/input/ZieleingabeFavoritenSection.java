@@ -1,4 +1,4 @@
-package de.pardertec.medipad.fahrtenbuch;
+package de.pardertec.medipad.fahrtenbuch.input;
 
 import android.app.Fragment;
 import android.os.Bundle;
