@@ -10,7 +10,7 @@ import de.pardertec.medipad.R;
 import de.pardertec.medipad.fahrtenbuch.FahrtenbuchActivity;
 
 import static de.pardertec.medipad.MedipadApplication.EXTRA_ADRESSE;
-import static de.pardertec.medipad.MedipadApplication.EXTRA_KILOMETERSTAND;
+import static de.pardertec.medipad.MedipadApplication.*;
 
 public class ZieleingabeActivity extends Activity {
 
@@ -29,6 +29,7 @@ public class ZieleingabeActivity extends Activity {
 
     public void addFahrt(View view) {
         Intent intent = new Intent(this, FahrtenbuchActivity.class);
+        intent.putExtra(EXTRA_INTENTION, "addFahrt");
 
         EditText kilometerInput = (EditText)findViewById(R.id.kilometerstand_edit);
         int eingegebenerKilometerstand = Integer.parseInt(kilometerInput.getText().toString());

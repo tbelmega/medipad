@@ -81,7 +81,7 @@
         android:layout_centerVertical="true"
         android:layout_margin="5dp"
         android:layout_toLeftOf="@id/neues_blatt_button"
-        android:enabled="false"
-        android:text="Bearbeiten"/>
+        android:text="Bearbeiten"
+        android:onClick="editFahrzeugdaten"/>
 
 </RelativeLayout>

@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:width="250dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
+        android:lines="1"
         android:text="@string/kennzeichen"/>
     <TextView
         android:id="@+id/fahrer_label"
@@ -21,6 +22,7 @@
         android:layout_marginLeft="20dp"
         android:width="250dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
+        android:lines="1"
         android:text="@string/fahrer"/>
     <TextView
         android:id="@+id/sani_label"
@@ -30,6 +32,7 @@
         android:layout_marginLeft="20dp"
         android:width="250dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
+        android:lines="1"
         android:text="@string/sanitaeter"/>
 
     <AutoCompleteTextView
@@ -67,7 +70,8 @@
         android:id="@+id/btn_ok"
         android:layout_width="150dp"
         android:layout_height="60dp"
-        android:layout_alignParentBottom="true"
+        android:layout_marginTop="60dp"
+        android:layout_below="@id/kennzeichen_edit"
         android:text="OK"
         android:onClick="submitData"/>
 
@@ -76,7 +80,7 @@
         android:layout_height="60dp"
         android:layout_toRightOf="@+id/btn_ok"
         android:layout_marginLeft="20dp"
-        android:layout_alignParentBottom="true"
+        android:layout_alignTop="@id/btn_ok"
         android:text="@string/abort"
         android:onClick="abort"/>
 

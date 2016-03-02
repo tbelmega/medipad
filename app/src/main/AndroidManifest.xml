@@ -23,6 +23,10 @@
             android:name=".fahrtenbuch.input.ZieleingabeActivity"
             android:label="@string/title_activity_zieleingabe_activity" >
         </activity>
+        <activity
+            android:name=".fahrtenbuch.input.FahrzeugdatenActivity"
+            android:label="@string/title_activity_fahrzeugdateneingabe_activity" >
+        </activity>
     </application>
 
 </manifest>

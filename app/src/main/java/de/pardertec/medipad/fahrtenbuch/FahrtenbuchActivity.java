@@ -11,12 +11,13 @@ import de.pardertec.medipad.MedipadApplication;
 import de.pardertec.medipad.R;
 import de.pardertec.medipad.fahrtenbuch.FahrtenbuchBottomSection.BottomSectionListener;
 import de.pardertec.medipad.fahrtenbuch.FahrtenbuchTopSection.TopSectionListener;
+import de.pardertec.medipad.fahrtenbuch.input.FahrzeugdatenActivity;
 import de.pardertec.medipad.fahrtenbuch.input.ZieleingabeActivity;
 import de.pardertec.medipad.fahrtenbuch.model.Fahrt;
 import de.pardertec.medipad.fahrtenbuch.model.Fahrtenzettel;
 
 import static de.pardertec.medipad.MedipadApplication.EXTRA_ADRESSE;
-import static de.pardertec.medipad.MedipadApplication.EXTRA_KILOMETERSTAND;
+import static de.pardertec.medipad.MedipadApplication.*;
 import static de.pardertec.medipad.MedipadApplication.getCurrentFahrtenzettel;
 
 public class FahrtenbuchActivity extends AppCompatActivity implements BottomSectionListener, TopSectionListener {
@@ -41,10 +42,13 @@ public class FahrtenbuchActivity extends AppCompatActivity implements BottomSect
     @Override
     protected void onResume() {
         super.onResume();
-        Intent intent = getIntent();
-        int kilometer = intent.getIntExtra(EXTRA_KILOMETERSTAND, 0);
-        String adresse = intent.getStringExtra(EXTRA_ADRESSE);
-        if (adresse != null) addFahrt(kilometer, adresse);
+
+        String intent = getIntent().getStringExtra(EXTRA_INTENTION);
+
+        if (intent != null) switch (intent) {
+            case "addFahrt" : addFahrt(getIntent()); break;
+        }
+        updateFahrtenzettelView();
     }
 
 
@@ -58,17 +62,19 @@ public class FahrtenbuchActivity extends AppCompatActivity implements BottomSect
 
     }
 
-    public void addFahrt(int kilometer, String adresse) {
+    public void addFahrt(Intent intent) {
+        int kilometer = intent.getIntExtra(EXTRA_KILOMETERSTAND, 0);
+        String adresse = intent.getStringExtra(EXTRA_ADRESSE);
+
         Fahrtenzettel fahrtenzettel = getCurrentFahrtenzettel();
         Fahrt lastFahrt = fahrtenzettel.getLastFahrt();
 
-        if (kilometer > lastFahrt.getKilometerBeginn()) {
+        if (lastFahrt != null && kilometer > lastFahrt.getKilometerBeginn()) {
             Fahrt nextFahrt = new Fahrt();
             nextFahrt.setKilometerBeginn(kilometer);
             nextFahrt.setZiel(adresse);
 
             fahrtenzettel.addFahrt(nextFahrt);
-            this.updateFahrtenzettelView();
         } else if (kilometer < lastFahrt.getKilometerBeginn()){
             Toast.makeText(this, "Kilometerstand muss höher sein als bei der letzten Fahrt!", Toast.LENGTH_LONG).show();
         }
@@ -119,6 +125,11 @@ public class FahrtenbuchActivity extends AppCompatActivity implements BottomSect
 
     public void sendMessage(View view) {
         Intent intent = new Intent(this, ZieleingabeActivity.class);
+        startActivity(intent);
+    }
+
+    public void editFahrzeugdaten(View view) {
+        Intent intent = new Intent(this, FahrzeugdatenActivity.class);
         startActivity(intent);
     }
 

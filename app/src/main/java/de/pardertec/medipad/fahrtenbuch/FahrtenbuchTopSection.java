@@ -50,7 +50,7 @@ public class FahrtenbuchTopSection extends Fragment {
         neuesBlatt = (Button) view.findViewById(R.id.neues_blatt_button);
         neuesBlatt.setOnClickListener(getNeuesBlattListener());
         bearbeiten = (Button) view.findViewById(R.id.bearbeiten_button);
-        bearbeiten.setOnClickListener(getBearbeitenListener());
+        //bearbeiten.setOnClickListener(getBearbeitenListener());
 
         logo = (ImageView) view.findViewById(R.id.logo);
         logo.setOnClickListener(getLogoListener());

@@ -17,6 +17,12 @@ public class MedipadApplication extends Application {
     public static final String EXTRA_KILOMETERSTAND = "kilometerstand";
     public static final String EXTRA_ADRESSE = "adresse";
 
+    public static final String EXTRA_KENNZEICHEN = "kennzeichen";
+    public static final String EXTRA_FAHRER = "fahrer";
+    public static final String EXTRA_SANI = "sani";
+
+    public static final String EXTRA_INTENTION = "intention";
+
     private Fahrtenbuch theFahrtenbuch = new Fahrtenbuch();
 
 

@@ -19,4 +19,5 @@
     <string name="text_fahrer">Fahrer</string>
     <string name="text_sanitaeter">Sanitäter</string>
     <string name="abort">Abbrechen</string>
+    <string name="title_activity_fahrzeugdateneingabe_activity">Fahrzeugdaten bearbeiten</string>
 </resources>
