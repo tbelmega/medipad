@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Toast;
 
 import de.pardertec.medipad.MedipadApplication;
 import de.pardertec.medipad.R;
@@ -40,12 +41,9 @@ public class FahrtenbuchActivity extends AppCompatActivity implements BottomSect
     @Override
     protected void onResume() {
         super.onResume();
-
         Intent intent = getIntent();
-
         int kilometer = intent.getIntExtra(EXTRA_KILOMETERSTAND, 0);
         String adresse = intent.getStringExtra(EXTRA_ADRESSE);
-
         if (adresse != null) addFahrt(kilometer, adresse);
     }
 
@@ -60,26 +58,25 @@ public class FahrtenbuchActivity extends AppCompatActivity implements BottomSect
 
     }
 
-    ///////////////////////////////////////////
-    //// BOTTOM SECTION LISTENER METHODS
-    //////////////////////////////////////////
-
     public void addFahrt(int kilometer, String adresse) {
         Fahrtenzettel fahrtenzettel = getCurrentFahrtenzettel();
         Fahrt lastFahrt = fahrtenzettel.getLastFahrt();
 
         if (kilometer > lastFahrt.getKilometerBeginn()) {
-
             Fahrt nextFahrt = new Fahrt();
-
             nextFahrt.setKilometerBeginn(kilometer);
             nextFahrt.setZiel(adresse);
 
             fahrtenzettel.addFahrt(nextFahrt);
-
             this.updateFahrtenzettelView();
+        } else if (kilometer < lastFahrt.getKilometerBeginn()){
+            Toast.makeText(this, "Kilometerstand muss höher sein als bei der letzten Fahrt!", Toast.LENGTH_LONG).show();
         }
     }
+
+    ///////////////////////////////////////////
+    //// BOTTOM SECTION LISTENER METHODS
+    //////////////////////////////////////////
 
     @Override
     public void departNow() {
