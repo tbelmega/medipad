@@ -69,13 +69,13 @@ public class FahrtenbuchActivity extends AppCompatActivity implements BottomSect
         Fahrtenzettel fahrtenzettel = getCurrentFahrtenzettel();
         Fahrt lastFahrt = fahrtenzettel.getLastFahrt();
 
-        if (lastFahrt != null && kilometer > lastFahrt.getKilometerBeginn()) {
+        if (lastFahrt == null || kilometer > lastFahrt.getKilometerBeginn()) {
             Fahrt nextFahrt = new Fahrt();
             nextFahrt.setKilometerBeginn(kilometer);
             nextFahrt.setZiel(adresse);
 
             fahrtenzettel.addFahrt(nextFahrt);
-        } else if (kilometer < lastFahrt.getKilometerBeginn()){
+        } else if ( kilometer < lastFahrt.getKilometerBeginn()){
             Toast.makeText(this, "Kilometerstand muss höher sein als bei der letzten Fahrt!", Toast.LENGTH_LONG).show();
         }
     }

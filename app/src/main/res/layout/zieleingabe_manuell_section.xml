@@ -13,7 +13,8 @@
         android:layout_width="match_parent"
         android:layout_below="@+id/kilometerstand_label"
         android:layout_height="60dp"
-        android:inputType="number"/>
+        android:inputType="number"
+        android:maxLength="7"/>
 
     <TextView
         android:id="@+id/adresse_label"
@@ -29,8 +30,8 @@
         android:gravity="top|left"
         android:scrollbars="vertical"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/adresse_label"
-        android:layout_height="240dp"
         android:inputType="textMultiLine"
         />
 
