@@ -62,7 +62,8 @@ public class FahrtenbuchMiddleSection extends Fragment {
     }
 
     private void displayCaptions(RelativeLayout fahrtenZettelLayout) {
-        renderCaptionLabel(fahrtenZettelLayout, R.id.kilometer_label, R.string.kilometer_label, 100, null);
+        renderCaptionLabel(fahrtenZettelLayout, R.id.nummer_label, R.string.nummer_label, 60, null);
+        renderCaptionLabel(fahrtenZettelLayout, R.id.kilometer_label, R.string.kilometer_label, 100, R.id.nummer_label);
         renderCaptionLabel(fahrtenZettelLayout, R.id.adresse_label, R.string.adresse_label, 300, R.id.kilometer_label);
         renderCaptionLabel(fahrtenZettelLayout, R.id.abfahrt_label, R.string.abfahrt_label, 150, R.id.adresse_label);
         renderCaptionLabel(fahrtenZettelLayout, R.id.ankunft_label, R.string.ankunft_label, 150, R.id.abfahrt_label);
@@ -83,6 +84,7 @@ public class FahrtenbuchMiddleSection extends Fragment {
             renderAddressTextView(fahrtenZettelLayout, previousLine, lineIndex, currentFahrt);
             previousLine = lineIndex;
 
+            renderNummerTextView(fahrtenZettelLayout, lineIndex, i + 1);
             renderKilometerTextView(fahrtenZettelLayout, lineIndex, currentFahrt);
             renderAbfahrtTextView(fahrtenZettelLayout, lineIndex, currentFahrt);
             renderAnkunftTextView(fahrtenZettelLayout, lineIndex, currentFahrt);
@@ -91,6 +93,8 @@ public class FahrtenbuchMiddleSection extends Fragment {
             addInfCheckBox(fahrtenZettelLayout, lineIndex, currentFahrt);
         }
     }
+
+
 
 
     private void renderCaptionLabel(RelativeLayout fahrtenZettelLayout, int id, int label, int width, Integer toTheRightOfId) {
@@ -115,7 +119,11 @@ public class FahrtenbuchMiddleSection extends Fragment {
         fahrtenZettelLayout.addView(targetAddress, addressDetails);
     }
 
-
+    private void renderNummerTextView(RelativeLayout fahrtenZettelLayout, int lineIndex, int i) {
+        TextView fahrtNummer = new TextView(this.getActivity());
+        fahrtNummer.setText(Integer.toString(i));
+        fahrtenZettelLayout.addView(fahrtNummer, getTextViewLayoutParams(lineIndex, R.id.nummer_label));
+    }
 
     private void renderAddressTextView(RelativeLayout fahrtenZettelLayout, int previousLine, int lineIndex, Fahrt currentFahrt) {
         TextView targetAddress = new TextView(this.getActivity());
@@ -241,4 +249,5 @@ public class FahrtenbuchMiddleSection extends Fragment {
         Resources r = getResources();
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, r.getDisplayMetrics());
     }
+
 }
