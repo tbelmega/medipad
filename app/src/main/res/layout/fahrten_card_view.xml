@@ -1,0 +1,68 @@
+<android.support.v7.widget.CardView
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/card_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    card_view:cardCornerRadius="4dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/kilometer_label"
+            android:layout_width="60dp"
+            android:layout_height="20dp"
+            android:background="@color/cardview_light_background"
+            android:layout_marginRight="40dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_centerVertical="true"
+            android:gravity="right"
+            android:text="Kilometers"/>
+
+        <TextView
+            android:id="@+id/adresse_label"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/kilometer_label"
+            android:layout_marginBottom="10dp"
+            android:text="Name + Adresse"/>
+
+        <TextView
+            android:id="@+id/abfahrt_label"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/adresse_label"
+            android:text="Abfahrt"/>
+
+        <TextView
+            android:id="@+id/ankunft_label"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/abfahrt_label"
+            android:layout_centerVertical="true"
+            android:text="Ankunft"/>
+
+        <CheckBox
+            android:id="@+id/cbx_sr"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/ankunft_label"
+            android:layout_centerVertical="true"
+            android:text="SR"/>
+
+        <CheckBox
+            android:id="@+id/cbx_inf"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/cbx_sr"
+            android:layout_centerVertical="true"
+            android:text="Inf"/>
+
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

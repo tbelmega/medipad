@@ -2,6 +2,10 @@ package de.pardertec.medipad;
 
 import android.app.Application;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+
 import de.pardertec.medipad.fahrtenbuch.model.Fahrt;
 import de.pardertec.medipad.fahrtenbuch.model.Fahrtenbuch;
 import de.pardertec.medipad.fahrtenbuch.model.Fahrtenzettel;
@@ -22,6 +26,8 @@ public class MedipadApplication extends Application {
     public static final String EXTRA_SANI = "sani";
 
     public static final String EXTRA_INTENTION = "intention";
+
+    public static final DateFormat GERMAN_STD_DATE_FORMAT = new SimpleDateFormat("dd.MM.yy HH:mm", Locale.GERMANY);
 
     private Fahrtenbuch theFahrtenbuch = new Fahrtenbuch();
 

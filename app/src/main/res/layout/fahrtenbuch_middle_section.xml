@@ -34,20 +34,15 @@
         android:layout_toRightOf="@+id/abfahrt_label"
         android:text="Ankunft"/>
 
-    <TextView
-        android:id="@+id/sonderrechte_label"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/kilometer_label"
-        android:layout_toRightOf="@+id/ankunft_label"
-        android:text="SR"/>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/fahrtenList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/kilometer_label"
+        android:layout_marginTop="10dp"
+    />
 
-    <TextView
-        android:id="@+id/inf_label"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/kilometer_label"
-        android:layout_toRightOf="@+id/sonderrechte_label"
-        android:text="Inf"/>
+
+
 
 </RelativeLayout>

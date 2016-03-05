@@ -4,6 +4,8 @@ package de.pardertec.medipad.fahrtenbuch;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Toast;
 
@@ -14,6 +16,7 @@ import de.pardertec.medipad.fahrtenbuch.FahrtenbuchTopSection.TopSectionListener
 import de.pardertec.medipad.fahrtenbuch.input.FahrzeugdatenActivity;
 import de.pardertec.medipad.fahrtenbuch.input.ZieleingabeActivity;
 import de.pardertec.medipad.fahrtenbuch.model.Fahrt;
+import de.pardertec.medipad.fahrtenbuch.model.FahrtAdapter;
 import de.pardertec.medipad.fahrtenbuch.model.Fahrtenzettel;
 
 import static de.pardertec.medipad.MedipadApplication.EXTRA_ADRESSE;
@@ -35,7 +38,16 @@ public class FahrtenbuchActivity extends AppCompatActivity implements BottomSect
         middleSection = (FahrtenbuchMiddleSection) getFragmentManager().findFragmentById(R.id.middle_fragment);
         bottomSection = (FahrtenbuchBottomSection) getFragmentManager().findFragmentById(R.id.bottom_fragment);
 
-        updateFahrtenzettelView();
+        RecyclerView fahrtenList = (RecyclerView) findViewById(R.id.fahrtenList);
+        fahrtenList.setHasFixedSize(true);
+        LinearLayoutManager llm = new LinearLayoutManager(this);
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        fahrtenList.setLayoutManager(llm);
+
+        FahrtAdapter fahrtAdapter = new FahrtAdapter(getTestFahrtenzettel().getFahrten());
+        fahrtenList.setAdapter(fahrtAdapter);
+
+        //updateFahrtenzettelView();
     }
 
 
@@ -56,7 +68,7 @@ public class FahrtenbuchActivity extends AppCompatActivity implements BottomSect
         Fahrtenzettel fahrtenzettel = getCurrentFahrtenzettel();
         if (fahrtenzettel != null) {
             topSection.setFahrtenzettelData(fahrtenzettel);
-            middleSection.updateFahrtenListView(fahrtenzettel);
+            //middleSection.updateFahrtenListView(fahrtenzettel);
             bottomSection.enableButtonsDependingOnLastFahrt(fahrtenzettel.getLastFahrt());
         }
 
