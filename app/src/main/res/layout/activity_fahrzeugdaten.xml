@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fahrzeugdaten_layout"
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -76,6 +77,7 @@
         android:onClick="submitData"/>
 
     <Button
+        android:id="@+id/btn_abort"
         android:layout_width="150dp"
         android:layout_height="60dp"
         android:layout_toRightOf="@+id/btn_ok"
