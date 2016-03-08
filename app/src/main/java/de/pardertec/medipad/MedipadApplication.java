@@ -1,10 +1,20 @@
 package de.pardertec.medipad;
 
+import android.annotation.TargetApi;
 import android.app.Application;
+import android.graphics.pdf.PdfDocument;
+import android.os.Build;
+import android.print.PrintAttributes;
+import android.print.pdf.PrintedPdfDocument;
+import android.support.v4.print.PrintHelper;
+import android.view.View;
+import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.List;
 import java.util.Locale;
 
 import de.pardertec.medipad.fahrtenbuch.model.Fahrt;
@@ -104,4 +114,38 @@ public class MedipadApplication extends Application {
     }
 
 
+    @TargetApi(Build.VERSION_CODES.KITKAT)
+    public void storeCurrentFahrtenzettelAsPdf(View fahrtenbuchLayout) {
+        PrintAttributes.Builder b = new PrintAttributes.Builder();
+        b.setMediaSize(PrintAttributes.MediaSize.ISO_A2.asLandscape());
+        b.setMinMargins(new PrintAttributes.Margins(20, 20, 20, 20));
+        b.setColorMode(PrintAttributes.COLOR_MODE_COLOR);
+        PrintAttributes attr = b.build();
+
+        // open a new document
+        PrintedPdfDocument document = new PrintedPdfDocument(fahrtenbuchLayout.getContext(),
+                attr);
+
+        // start a page
+        PdfDocument.Page page = document.startPage(0);
+
+        // draw something on the page
+        fahrtenbuchLayout.draw(page.getCanvas());
+
+        // finish the page
+        document.finishPage(page);
+
+        // write the document content
+        File f = new File(fahrtenbuchLayout.getContext().getExternalFilesDir(null),"fahrtenzettel" + System.currentTimeMillis() + ".pdf");
+        try {
+            f.createNewFile();
+            document.writeTo(new FileOutputStream(f));
+            Toast.makeText(fahrtenbuchLayout.getContext(),"Saved file " + f.getAbsolutePath(), Toast.LENGTH_LONG).show();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        //close the document
+        document.close();
+    }
 }

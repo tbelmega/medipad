@@ -42,7 +42,6 @@ public class FahrtenbuchActivity extends AppCompatActivity implements BottomSect
     @Override
     protected void onResume() {
         super.onResume();
-
         String intent = getIntent().getStringExtra(EXTRA_INTENTION);
 
         if (intent != null) switch (intent) {
@@ -116,6 +115,7 @@ public class FahrtenbuchActivity extends AppCompatActivity implements BottomSect
 
     @Override
     public void clearSheet() {
+        MedipadApplication.getInstance().storeCurrentFahrtenzettelAsPdf(findViewById(R.id.fahrtenbuch_layout));
         MedipadApplication.startNewFahrtenZettel();
         this.updateFahrtenzettelView();
     }
