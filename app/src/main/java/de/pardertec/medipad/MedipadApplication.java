@@ -4,6 +4,7 @@ import android.app.Application;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.Locale;
 
 import de.pardertec.medipad.fahrtenbuch.model.Fahrt;
@@ -18,8 +19,11 @@ public class MedipadApplication extends Application {
     private static final MedipadApplication instance = new MedipadApplication();
 
     public static final String TAG = "MediPad.Fahrtenbuch";
+    public static final String EXTRA_UUID = "uuid";
     public static final String EXTRA_KILOMETERSTAND = "kilometerstand";
     public static final String EXTRA_ADRESSE = "adresse";
+    public static final String EXTRA_ABFAHRT = "abfahrtszeit";
+    public static final String EXTRA_ANKUNFT = "ankunftszeit";
 
     public static final String EXTRA_KENNZEICHEN = "kennzeichen";
     public static final String EXTRA_FAHRER = "fahrer";
@@ -35,6 +39,10 @@ public class MedipadApplication extends Application {
     public MedipadApplication() {
         //TODO: Remove dummy data, load actual data
         this.theFahrtenbuch.addFahrtenzettel(getTestFahrtenzettel());
+    }
+
+    public static Fahrtenbuch getFahrtenbuch() {
+        return getInstance().theFahrtenbuch;
     }
 
     @Override

@@ -20,6 +20,10 @@ public class Fahrt implements Comparable<Fahrt> {
         this.uuid = UUID.randomUUID();
     }
 
+    public Fahrt(String uuid) {
+        this.uuid = UUID.fromString(uuid);
+    }
+
     public void setZiel(String ziel) {
         this.ziel = ziel;
     }
@@ -86,4 +90,5 @@ public class Fahrt implements Comparable<Fahrt> {
     public boolean departed() {
         return this.abfahrtszeit != null && this.ankunftszeit == null;
     }
+
 }

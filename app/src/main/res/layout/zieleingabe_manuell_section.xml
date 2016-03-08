@@ -36,19 +36,31 @@
         />
 
     <Button
-        android:id="@id/btn_ok"
+        android:id="@+id/btn_add_fahrt"
         android:layout_width="150dp"
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
         android:text="Fahrt hinzufügen"
+        android:enabled="false"
         android:onClick="addFahrt"/>
+
+    <Button
+        android:id="@+id/btn_edit_fahrt"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@id/btn_add_fahrt"
+        android:layout_marginLeft="40dp"
+        android:text="Änderungen übernehmen"
+        android:enabled="false"
+        android:onClick="editFahrt"/>
 
     <Button
         android:id="@id/btn_abort"
         android:layout_width="150dp"
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@id/btn_ok"
+        android:layout_toRightOf="@id/btn_edit_fahrt"
         android:layout_marginLeft="40dp"
         android:text="Abbrechen"
         android:onClick="abort"/>

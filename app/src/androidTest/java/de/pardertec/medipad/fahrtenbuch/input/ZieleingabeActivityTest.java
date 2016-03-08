@@ -1,6 +1,7 @@
 package de.pardertec.medipad.fahrtenbuch.input;
 
 import android.support.test.rule.ActivityTestRule;
+import android.test.suitebuilder.annotation.SmallTest;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -18,6 +19,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
 /**
  * Created by Thiemo on 05.03.2016.
  */
+@SmallTest
 public class ZieleingabeActivityTest {
     @Rule
     public ActivityTestRule<ZieleingabeActivity> fahrtenbuchActivityTestRule =
@@ -28,7 +30,7 @@ public class ZieleingabeActivityTest {
         //Zieleingabe
         onView(withId(R.id.kilometerstand_edit)).perform(typeText("111"));
         onView(withId(R.id.adresse_edit)).perform(typeText("Name\nStraße Nummer\nPLZ Ort"));
-        onView(withId(R.id.btn_ok)).perform(click());
+        onView(withId(R.id.btn_add_fahrt)).perform(click());
 
         // Check if the fahrtenbuch layout is displayed
         onView(withId(R.id.fahrtenbuch_layout)).check(matches(isDisplayed()));
@@ -39,7 +41,7 @@ public class ZieleingabeActivityTest {
         //Clear text edit fields
         onView(withId(R.id.kilometerstand_edit)).perform(clearText());
         onView(withId(R.id.adresse_edit)).perform(clearText());
-        onView(withId(R.id.btn_ok)).perform(click());
+        onView(withId(R.id.btn_add_fahrt)).perform(click());
 
         // Check if the zieleingabe layout is still displayed
         onView(withId(R.id.zieleingabe_layout)).check(matches(isDisplayed()));

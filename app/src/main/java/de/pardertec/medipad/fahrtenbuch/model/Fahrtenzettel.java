@@ -58,4 +58,11 @@ public class Fahrtenzettel {
     public int size() {
         return this.fahrten.size();
     }
+
+    public Fahrt getFahrtForId(String uuid) {
+        for (Fahrt f: fahrten) {
+            if (f.uuid.toString().equals(uuid)) return f;
+        }
+        throw new RuntimeException("Fahrt with this ID does not exist.");
+    }
 }

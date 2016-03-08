@@ -24,7 +24,7 @@
         android:layout_toLeftOf="@+id/abfahrt_button"
         android:layout_margin="5dp"
         android:text="Neue Fahrt"
-        android:onClick="sendMessage"
+        android:onClick="openNewZieleingabe"
         />
 
     <Button
